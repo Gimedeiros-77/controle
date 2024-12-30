@@ -3,8 +3,8 @@ import { Item } from '../../types/Item';
 import { TableItem } from '../TableItem';
 
 type Props = {
-    list: Item[]
-}
+    list: Item[];
+};
 
 export const TableArea = ({ list }: Props) => {
     return (

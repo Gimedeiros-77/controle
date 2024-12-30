@@ -1,32 +1,22 @@
-import {Item} from '../types/Item';
+import { Item } from '../types/Item';
 
-export const getCurrentMonth = () => {
-    let now = new Date();
-    return `${now.getFullYear()}${now.getMonth()+1}`;
-}
+// Função para obter o mês atual no formato "YYYY-MM"
+export const getCurrentMonth = (): string => {
+  const now = new Date();
+  return `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}`; // Exemplo: "2024-12"
+};
 
-export const filterListByMonth = (list: Item[], date: string): Item []  => {
-    let newList: Item [] = [];
-    let [year, month] = date.split('-');
+// Função para filtrar a lista de itens pelo mês
+export const filterListByMonth = (list: Item[], currentMonth: string): Item[] => {
+  return list.filter(item => {
+    const itemDate = new Date(item.date);
+    const itemMonth = `${itemDate.getFullYear()}-${(itemDate.getMonth() + 1).toString().padStart(2, '0')}`;
+    return itemMonth === currentMonth;
+  });
+};
 
-    for( let i in list) {
-        if(
-            list[i].date.getFullYear() === parseInt(year) &&
-            (list[i].date.getMonth () +1) === parseInt (month)
-        ) {
-            newList.push(list[i]);
-        }
-    }
-
-
-
-    return newList;
-}
-
-export const formatDate = (date: Date): string =>{
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-
-    return `${day}/${month}/${year}`;
-}
+// Função para formatar a data no formato desejado (ex: "30/12/2024")
+export const formatDate = (date: string): string => {
+  const [year, month, day] = date.split('-');
+  return `${day}/${month}/${year}`;
+};
